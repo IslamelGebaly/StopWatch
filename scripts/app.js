@@ -51,6 +51,7 @@ function app(){
         margin-left: 320px`
     );
 
+    let interval;
     button.addEventListener('click', e => {
         changeButton(button)
         const interval = setInterval(() => {
@@ -63,6 +64,33 @@ function app(){
         }
         ,10);
     });
+
+    //reset button
+    reset = doc.createElement('button');
+    reset.textContent = "Reset";
+    reset.addEventListener("click", () =>{
+        clearInterval(interval);
+        [hours, minutes ,seconds, milliseconds] = [0, 0, 0, 0];
+        [h, m, s, ms] = ["00", "00", "00", "00"];
+        timer.textContent = `${h}:${m}:${s}:${ms}`;
+    });
+
+    
+    reset.setAttribute("style", 
+        `border-style:double;
+        border-width:5px;
+        border-color: white;
+        text-align: center;
+        font-size: 20px;
+        color: white;
+        background-color: purple;
+        width: 100px;
+        height: 50px;
+        position: relative;
+        margin-right: 320px`
+    );
+
+    container.appendChild(reset);
 
     container.appendChild(button);
     doc.body.appendChild(container);
