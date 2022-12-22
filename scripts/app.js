@@ -1,8 +1,10 @@
-isOn = false;
+let isOn = false;
+let [hours, minutes ,seconds, milliseconds] = [0, 0, 0, 0];
+let [h, m, s, ms] = ["00", "00", "00", "00"];
 
 function app(){
     const doc = document;
-
+    
     //Setting up a container for the page
     const container = doc.createElement("div");
     container.setAttribute("style", 
@@ -29,7 +31,7 @@ function app(){
     
     ///timer element
     const timer = doc.createElement("h1");
-    timer.textContent = "00:00:00";
+    timer.textContent = `${h}:${m}:${s}:${ms}`;
     display.appendChild(timer);
 
     //button
@@ -50,23 +52,77 @@ function app(){
     );
 
     button.addEventListener('click', e => {
-        e.textContent = "Stop";
-        e.setAttribute("style", 
-            `border-style:double;
-            border-width:5px;
-            border-color: white;
-            text-align: center;
-            font-size: 20px;
-            color: white;
-            background-color: red;
-            width: 100px;
-            height: 50px;
-            position: relative;
-            margin-left: 320px`);
+        changeButton(button)
+        const interval = setInterval(() => {
+            if(!isOn){
+                clearInterval(interval);
+            }
+
+            updateTimer();
+            timer.textContent = `${h}:${m}:${s}:${ms}`
+        }
+        ,10);
     });
+
     container.appendChild(button);
     doc.body.appendChild(container);
 }
 
+function changeButton(button){
+    if(!isOn){
+    button.textContent = "Stop";
+    button.setAttribute("style", 
+        `border-style:double;
+        border-width:5px;
+        border-color: white;
+        text-align: center;
+        font-size: 20px;
+        color: white;
+        background-color: red;
+        width: 100px;
+        height: 50px;
+        position: relative;
+        margin-left: 320px`);
+        isOn = true;
+    }
+    else{
+        button.textContent = "Start";
+    button.setAttribute("style", 
+        `border-style:double;
+        border-width:5px;
+        border-color: white;
+        text-align: center;
+        font-size: 20px;
+        color: white;
+        background-color: green;
+        width: 100px;
+        height: 50px;
+        position: relative;
+        margin-left: 320px`);
+        isOn = false;
+    }
+}
+
+function updateTimer(){
+    milliseconds += 10;
+    if(milliseconds == 1000){
+        milliseconds = 0;
+        seconds++;
+    }
+    if(seconds == 60){
+        seconds = 0;
+        minutes++;
+    }
+
+    if(minutes == 60){
+        minutes = 0;
+        hours++;
+    }
+
+    h = hours < 10 ? "0" + hours : hours;
+    m = minutes < 10 ? "0" + minutes : minutes;
+    s = seconds < 10 ? "0" + seconds : seconds;
+    ms = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds;
+}
 
 app()
