@@ -52,7 +52,7 @@ function app(){
         `
     );
 
-    let interval;
+    
     button.addEventListener('click', e => {
         changeButton(button)
         const interval = setInterval(() => {
@@ -70,7 +70,8 @@ function app(){
     reset = doc.createElement('button');
     reset.textContent = "Reset";
     reset.addEventListener("click", () =>{
-        clearInterval(interval);
+        isOn = false;
+        
         [hours, minutes ,seconds, milliseconds] = [0, 0, 0, 0];
         [h, m, s, ms] = ["00", "00", "00", "00"];
         timer.textContent = `${h}:${m}:${s}:${ms}`;
