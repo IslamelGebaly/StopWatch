@@ -48,7 +48,8 @@ function app(){
         width: 100px;
         height: 50px;
         position: relative;
-        margin-left: 320px`
+        margin-left: 320px
+        `
     );
 
     let interval;
