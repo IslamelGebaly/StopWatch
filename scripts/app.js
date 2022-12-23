@@ -7,26 +7,11 @@ function app(){
     
     //Setting up a container for the page
     const container = doc.createElement("div");
-    container.setAttribute("style", 
-        `width: 866px;
-        height: 700px;
-        margin: 0px 0px 0px 0px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center`
-    );
+    container.className = "container";
 
     //timer display
     const display = doc.createElement("div");
-    display.setAttribute("style",
-        `border-style:double; 
-        border-width:10px; 
-        text-align:center;
-        color: white;
-        background-color:blue;
-        width:400px`
-    )
+    display.className = "display"
     container.appendChild(display);
     
     ///timer element
@@ -36,25 +21,11 @@ function app(){
 
     //button
     button = doc.createElement("button");
+    button.className = "button start";
     button.textContent = "Start";
-    button.setAttribute("style", 
-        `border-style:double;
-        border-width:5px;
-        border-color: white;
-        text-align: center;
-        font-size: 20px;
-        color: white;
-        background-color: green;
-        width: 100px;
-        height: 50px;
-        position: relative;
-        margin-left: 320px
-        `
-    );
-
     
     button.addEventListener('click', e => {
-        changeButton(button)
+        changeButton(button);
         const interval = setInterval(() => {
             if(!isOn){
                 clearInterval(interval);
@@ -69,29 +40,15 @@ function app(){
     //reset button
     reset = doc.createElement('button');
     reset.textContent = "Reset";
+    reset.className = "button reset"
     reset.addEventListener("click", () =>{
-        isOn = false;
-        
+        if(isOn)
+            changeButton(button);
+            
         [hours, minutes ,seconds, milliseconds] = [0, 0, 0, 0];
         [h, m, s, ms] = ["00", "00", "00", "00"];
         timer.textContent = `${h}:${m}:${s}:${ms}`;
     });
-
-    
-    reset.setAttribute("style", 
-        `border-style:double;
-        border-width:5px;
-        border-color: white;
-        text-align: center;
-        font-size: 20px;
-        color: white;
-        background-color: purple;
-        width: 100px;
-        height: 50px;
-        position: relative;
-        margin-right: 320px`
-    );
-
     container.appendChild(reset);
 
     container.appendChild(button);
@@ -99,37 +56,15 @@ function app(){
 }
 
 function changeButton(button){
-    if(!isOn){
-    button.textContent = "Stop";
-    button.setAttribute("style", 
-        `border-style:double;
-        border-width:5px;
-        border-color: white;
-        text-align: center;
-        font-size: 20px;
-        color: white;
-        background-color: red;
-        width: 100px;
-        height: 50px;
-        position: relative;
-        margin-left: 320px`);
-        isOn = true;
+    if(isOn){
+        button.textContent = "Start";
+        button.className = "button start";
+        isOn = false;
     }
     else{
-        button.textContent = "Start";
-    button.setAttribute("style", 
-        `border-style:double;
-        border-width:5px;
-        border-color: white;
-        text-align: center;
-        font-size: 20px;
-        color: white;
-        background-color: green;
-        width: 100px;
-        height: 50px;
-        position: relative;
-        margin-left: 320px`);
-        isOn = false;
+        button.className = "button stop";
+        button.textContent = "Stop";
+        isOn = true;
     }
 }
 
