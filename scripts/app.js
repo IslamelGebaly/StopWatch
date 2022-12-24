@@ -29,10 +29,10 @@ function app(){
         const interval = setInterval(() => {
             if(!isOn){
                 clearInterval(interval);
+            }else{
+                updateTimer();
+                timer.textContent = `${h}:${m}:${s}:${ms}`
             }
-
-            updateTimer();
-            timer.textContent = `${h}:${m}:${s}:${ms}`
         }
         ,10);
     });
